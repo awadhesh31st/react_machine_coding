@@ -47,10 +47,7 @@ const CheckboxTree = () => {
         return (
           <Checkbox
             key={item.id}
-            id={item.id}
-            name={item.name}
-						selected={item.selected}
-            children={item.children}
+            data={item}
 						handleTreeChange={handleTreeChange}
           />
         );

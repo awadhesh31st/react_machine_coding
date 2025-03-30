@@ -5,6 +5,7 @@ export interface CheckboxTreeType{
 	children?: CheckboxTreeType[]
 }
 
-export interface CheckboxType extends CheckboxTreeType{
+export interface CheckboxType{
+	data: CheckboxTreeType;
 	handleTreeChange: (index: number, status: boolean) => void;
 }

@@ -2,12 +2,10 @@ import { FC, useMemo } from "react";
 import { CheckboxType } from "../../types";
 
 const Checkbox: FC<CheckboxType> = ({
-  id,
-  name,
-  selected,
-  children,
+ data,
   handleTreeChange,
 }) => {
+  const { id, name, selected, children } = data
   const allChildrenSelected = (children || [])?.length > 0 && (children || [])?.every(child => child.selected);
   const anyChildSelected = (children || [])?.some(child => child.selected) && !allChildrenSelected;
 
@@ -16,10 +14,7 @@ const Checkbox: FC<CheckboxType> = ({
       return (
         <Checkbox
           key={item.id}
-          id={item.id}
-          name={item.name}
-          selected={item.selected}
-          children={item.children}
+          data={item}
           handleTreeChange={handleTreeChange}
         />
       );
@@ -29,8 +24,8 @@ const Checkbox: FC<CheckboxType> = ({
   return (
     <div className="checkboxContainer">
       <div className="checkbox">
-        <input type="checkbox" name={name} data-id={id} checked={selected} onChange={() => handleTreeChange(id, !selected)} className={anyChildSelected ? "partial-checkbox" : ""}/>
-        <span>{name}</span>
+        <input type="checkbox" name={name} data-id={id} checked={selected} onChange={() => handleTreeChange(id, !selected)}/>
+        <span className={`${anyChildSelected ? 'text-amber-500' : 'text-green-500'}`}>{name}</span>
       </div>
       {childCheckBox}
     </div>
