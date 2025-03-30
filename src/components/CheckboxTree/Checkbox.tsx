@@ -8,6 +8,9 @@ const Checkbox: FC<CheckboxType> = ({
   children,
   handleTreeChange,
 }) => {
+  const allChildrenSelected = (children || [])?.length > 0 && (children || [])?.every(child => child.selected);
+  const anyChildSelected = (children || [])?.some(child => child.selected) && !allChildrenSelected;
+
   const childCheckBox = useMemo(() => {
     return (children || [])?.map((item) => {
       return (
@@ -26,13 +29,7 @@ const Checkbox: FC<CheckboxType> = ({
   return (
     <div className="checkboxContainer">
       <div className="checkbox">
-        <input
-          type="checkbox"
-          name={name}
-          data-id={id}
-          checked={selected}
-          onChange={() => handleTreeChange(id, !selected)}
-        />
+        <input type="checkbox" name={name} data-id={id} checked={selected} onChange={() => handleTreeChange(id, !selected)} className={anyChildSelected ? "partial-checkbox" : ""}/>
         <span>{name}</span>
       </div>
       {childCheckBox}
